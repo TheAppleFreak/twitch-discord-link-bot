@@ -1,0 +1,35 @@
+version: "3.9"
+services: 
+  app:
+    build: .
+    container_name: "app"
+    environment:
+      # Database
+      DB_CONNECTION_STRING: "postgres://${DB_USERNAME}:${DB_PASSWORD}@postgres:5432/twitch-discord-link-bot"
+
+      ## Transporter
+      BROKER_TRANSPORTER_URI: "redis://redis:6379"
+    links: 
+      - postgres
+      - redis
+    depends_on:
+      - postgres
+      - redis
+  
+  postgres: 
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment: 
+      POSTGRES_USER: "${DB_USERNAME}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: "twitch-discord-link-bot"
+    ports: 
+      - 5432:5432
+
+  redis: 
+    image: redis
+    ports: 
+      - 6379:6379
+volumes:
+  pgdata: {}
