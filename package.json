@@ -7,6 +7,8 @@
   "scripts": {
     "build": "tsc -P tsconfig.json",
     "clean": "rimraf build",
+    "prepare": "husky install",
+    "prettier": "prettier --write \"src/**/*\"",
     "test": "jest"
   },
   "repository": {
