@@ -2,13 +2,18 @@ version: "3.9"
 services: 
   app:
     build: .
-    container_name: "app"
     environment:
-      # Database
-      DB_CONNECTION_STRING: "postgres://${DB_USERNAME}:${DB_PASSWORD}@postgres:5432/twitch-discord-link-bot"
-
-      ## Transporter
+      # Broker options
+      BROKER_LOG_LEVEL: "info"
       BROKER_TRANSPORTER_URI: "redis://redis:6379"
+      
+      # Database
+      DB_CONNECTION_STRING: "postgres://${DB_USERNAME}:${DB_PASSWORD}@postgres:5432/twitch-discord-link-bot?schema=public"
+
+      # Twitch
+      TWITCH_CLIENT_ID: "${TWITCH_CLIENT_ID}"
+      TWITCH_CLIENT_SECRET: "${TWITCH_CLIENT_SECRET}"
+      TWITCH_REFRESH_TOKEN: "${TWITCH_REFRESH_TOKEN}"
     links: 
       - postgres
       - redis

@@ -9,7 +9,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/base:0-${VARIANT}
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
 
 RUN export DEBIAN_FRONTEND=noninteractive
-RUN curl -fsSL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
 
 RUN sudo apt update 
 RUN sudo apt install -y --no-install-recommends nodejs build-essential
